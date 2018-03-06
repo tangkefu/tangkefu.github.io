@@ -1,46 +1,23 @@
 ---
 layout: page
-title: Hello World!
-tagline: Supporting tagline
+title: '2018'
+tagline: 
 ---
 {% include JB/setup %}
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
+### 学习计划
+年度目标
 
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
+1. 熟练掌握Golang
+2. 继续学习 Elixir
+3. 完成一个 Elixir实现的 bitcoin core
 
-## Update Author Attributes
+### 博客计划
+杂七杂八的做了不少项目, 涉及的技术领域也相当繁杂, 一直都没有静下心来整理文档, 是一个很大的损失。
 
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
+今年陆续补起来。
+列出计划中的项目,给自己一个鞭策
 
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
-
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
-
-    $ rm -rf _posts/core-samples
-
-Here's a sample "posts list".
-
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
-
-## To-Do
-
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
-
-
+1. bitcoin的C++实现分析
+2. bitcoin的golang实现分析
+3. 区块链的P2P协议搭建
