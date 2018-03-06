@@ -8,10 +8,8 @@ tags: [c++]
 {% include JB/setup %}
 
 
-####memory consitency
-  参考《计算机体系机构: 量化方法研究》, memory consitency是由chche coherence引出的
+参考《计算机体系机构: 量化方法研究》, memory consitency是由chche coherence引出的
   
-####Cache coherence  
 >图1
 
 ![p1](https://m.lmoar.com/static/blog/cpp_blog_1.jpg)
@@ -25,7 +23,6 @@ tags: [c++]
 
 > 通俗的说, 如果在每次读取某一数据项时都会返回该数据项的最新写入值，则称这个存储系统是coherence(一致)的,  主要包含了内存系统两方面的行为表现
 > 
-  
   Coherence定义了一个读操作能获得什么样的值
   Consitency定义了何时一个写操作的值会被读操作获得
 
@@ -39,7 +36,7 @@ tags: [c++]
 > 这三个条件只是保证了coherence，还未考虑consistency的问题。比如，如果一个处理器对X的写入操作仅比另一个处理器对X的读取操作提前很短的一点时间，那就不可能确保该读取操作会返回这个写入值。这个写入值多久后能确保被读取操作读取到，这正是memory consistency讨论的问题。
 > 
 
-####Memory consistency model
+#### Memory consistency model
   本质上, 内存一致性模型限制了读操作的返回值
   直观上, 读操作应该返回“最后” 一次写入的值
 
@@ -107,7 +104,7 @@ tags: [c++]
 为获得好的性能, 根据《量化》一书，relaxed memory consistency models有多种模型, A->B表示 A 先于 B 完成, 比如放松 W->R；放松W->W；放松 R->W 和 R->R，这包括多种模型，其中Release consistency我们单独拿出来说
 > 
 
-####Release consistency
+#### Release consistency
 > Release consistency包含两个同步操作，acquire和release
 > 
 * ACQUIRE:  对于所有其它参与者来说, 在此操作后的所有读写操作必然发生在ACQUIRE这个动作之后
@@ -118,25 +115,21 @@ tags: [c++]
 对于RELEASE来说, 并没保证RELEASE后的读写操作不会发生在RELEASE动作之前.
 因此release和acquire的组合形成了内存屏障
 
-####C++11 memory order
-#####synchronized-with 与 happens-before 关系 
+#### C++11 memory order
+##### synchronized-with 与 happens-before 关系 
 线程之间的关系
 
 1. 简单地说,如果线程 A 写了变量 x, 线程 B 读了变量 x, 那么我们就说线程 A,
 B 间存在 synchronized-with 关系
 2. Happens-before 指明了哪些指令将看到哪些指令的结果
 
-  2.1 对于单线程而言,这很明了
+   > 2.1 对于单线程而言,这很明了
   
-  2.2 对于多线程而言,如果一个线程中的操作 A inter-thread happens-before 另一个线程中的操作 B, 那么 A happens-before B
+   > 2.2 对于多线程而言,如果一个线程中的操作 A inter-thread happens-before 另一个线程中的操作 B, 那么 A happens-before B
   
   Inter-thread happens-before 概念相对简单,并依赖于 synchronized-with 关系:
 如果一个线程中的操作 A synchronized-with 另一个线程中的操作 B, 那么 A inter-thread happens-before B. Inter-thread happens-before 关系具有传递性
 
-作者：stephen w
-链接：https://www.zhihu.com/question/24301047/answer/83422523
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 C++11  述了 6 种可以应用于原子变量的内存次序
 
@@ -153,13 +146,13 @@ C++11  述了 6 种可以应用于原子变量的内存次序
 2. relaxed(`memory_order_relaxed`)
 3. acquire release ( rest ...)
 
-#####`sequential consisten ordering` 顺序一致次序
+##### `sequential consisten ordering` 顺序一致次序
 
 对应于 `memory_order_seq_cst ` 
 
 SC作为默认的内存序，是因为它意味着将程序看做是一个简单的序列。如果对于一个原子变量的操作都是顺序一致的，那么多线程程序的行为就像是这些操作都以一种特定顺序被单线程程序执行
 
-#####`relaxed ordering` 松弛次序
+##### `relaxed ordering` 松弛次序
 对应于 `memory_order_relaxed`
 
 在原子变量上采用 relaxed ordering 的操作不参与 synchronized-with 关系。在同一线程内对同一变量的操作仍保持happens-before关系，但这与别的线程无关
@@ -169,7 +162,7 @@ SC作为默认的内存序，是因为它意味着将程序看做是一个简单
 
 按照什么顺序？基本上就是代码顺序（sequenced-before）。这就是唯一的限制了！两个来自不同线程的原子操作是什么顺序? 没有定义。。。。
 
-#####获取-释放次序(acquire-release ordering)
+##### 获取-释放次序(acquire-release ordering)
 对应`memory_order_release`, `memory_order_acquire`, `memory_order_acq_rel`
 
 同步对一个变量的读写操作
